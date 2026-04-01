@@ -764,42 +764,80 @@ graph TD
 
 ---
 
-6. **Types and Function Signatures Table**
+7. **Types and Function Signatures Table**
 
-```
-| Component | Type/Function Signature | Expected Inputs | Expected Outputs / Return Types | D
-escription |
-| :--- | :--- | :--- | :--- | :--- |
-| **Agent** | `New(llm llms.Model, opts ...Option) *Agent` | `llms.Model`, variadic `Option` 
-functions | `*Agent` | Constructs a new agent orchestrator with the specified LLM and configu
-rations. |
-| **Agent** | `Run(ctx context.Context, prompt string) (string, error)` | `context.Context`, 
-`string` (user prompt) | `string` (final answer), `error` | Executes the reasoning loop, inte
-racting with tools and LLM until a final answer is reached. |
-| **LLM** | `Generate(ctx context.Context, prompt string, tools []tools.Tool) (*llms.Response
-, error)` | `context.Context`, `string`, `[]tools.Tool` | `*llms.Response`, `error` | Low-lev
-el interface method to send a prompt and tool definitions to the LLM provider. |
-| **Tool** | `Execute(ctx context.Context, args map[string]interface{}) (string, error)` | `c
-ontext.Context`, `map[string]interface{}` (JSON arguments from LLM) | `string` (tool output),
- `error` | Executes the underlying Go function mapped to the tool and returns the result as a
- string for the LLM. |
-| **Tool** | `NewBaseTool(name, description string, fn ToolFunc) Tool` | `string` (name), `st
-ring` (desc), `func` (execution logic) | `tools.Tool` (interface) | Helper to quickly wrap an
- anonymous Go function into a compliant ADK tool. |
-| **Memory** | `AddMessage(role string, content string)` | `string` (role: user/assistant), `
-string` (content) | `void` | Appends a new message to the agent's conversational state. |
-| **Memory** | `GetContext() string` | None | `string` (formatted history) | Retrieves the fo
-rmatted conversational history to inject into the LLM prompt. |
-```
+> Note: GitHub-flavored Markdown tables don’t handle long code signatures well. This section uses an HTML table for reliable rendering.
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Type / Function Signature</th>
+      <th>Expected Inputs</th>
+      <th>Expected Outputs / Return Types</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Agent</strong></td>
+      <td><code>New(llm llms.Model, opts ...Option) *Agent</code></td>
+      <td><code>llms.Model</code>, variadic <code>Option</code> functions</td>
+      <td><code>*Agent</code></td>
+      <td>Constructs a new agent orchestrator with the specified LLM and configurations.</td>
+    </tr>
+    <tr>
+      <td><strong>Agent</strong></td>
+      <td><code>Run(ctx context.Context, prompt string) (string, error)</code></td>
+      <td><code>context.Context</code>, <code>string</code> (user prompt)</td>
+      <td><code>string</code> (final answer), <code>error</code></td>
+      <td>Executes the reasoning loop, interacting with tools and the LLM until a final answer is reached.</td>
+    </tr>
+    <tr>
+      <td><strong>LLM</strong></td>
+      <td><code>Generate(ctx context.Context, prompt string, tools []tools.Tool) (*llms.Response, error)</code></td>
+      <td><code>context.Context</code>, <code>string</code>, <code>[]tools.Tool</code></td>
+      <td><code>*llms.Response</code>, <code>error</code></td>
+      <td>Low-level interface method to send a prompt and tool definitions to the LLM provider.</td>
+    </tr>
+    <tr>
+      <td><strong>Tool</strong></td>
+      <td><code>Execute(ctx context.Context, args map[string]interface{}) (string, error)</code></td>
+      <td><code>context.Context</code>, <code>map[string]interface{}</code> (JSON args from LLM)</td>
+      <td><code>string</code> (tool output), <code>error</code></td>
+      <td>Executes the underlying Go function mapped to the tool and returns the result as a string for the LLM.</td>
+    </tr>
+    <tr>
+      <td><strong>Tool</strong></td>
+      <td><code>NewBaseTool(name, description string, fn ToolFunc) Tool</code></td>
+      <td><code>string</code> (name), <code>string</code> (description), <code>func</code> (execution logic)</td>
+      <td><code>tools.Tool</code> (interface)</td>
+      <td>Helper to quickly wrap an anonymous Go function into a compliant ADK tool.</td>
+    </tr>
+    <tr>
+      <td><strong>Memory</strong></td>
+      <td><code>AddMessage(role string, content string)</code></td>
+      <td><code>string</code> (role: user/assistant), <code>string</code> (content)</td>
+      <td><code>void</code></td>
+      <td>Appends a new message to the agent's conversational state.</td>
+    </tr>
+    <tr>
+      <td><strong>Memory</strong></td>
+      <td><code>GetContext() string</code></td>
+      <td>None</td>
+      <td><code>string</code> (formatted history)</td>
+      <td>Retrieves the formatted conversational history to inject into the LLM prompt.</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
-7. **References**
-- **Go Standard Library**: Heavily utilizes `context` for lifecycle management and `encoding/
-  json` for tool argument parsing. (https://pkg.go.dev/std)
-- **Google Gen AI SDK for Go**: The underlying official SDK used within the `llms/gemini` pro
-  vider package. (https://github.com/google/genai-go)
-- **ReAct (Reasoning and Acting)**: The core reasoning loop implemented by the agent orchestr
-  ator is based on the paper *ReAct: Synergizing Reasoning and Acting in Language Models* by Ya
-  o et al. (https://arxiv.org/abs/2210.03629)}]} [] {519 8 2344} FinishReasonStop map[]}> 
-  A
+8. **References**
+
+- [Go Programming Language](https://go.dev/)
+- [Google Cloud Vertex AI Documentation](https://cloud.google.com/vertex-ai)
+- [Gemini API Reference](https://ai.google.dev/api)
+- [Go Standard Library (pkg.go.dev/std)](https://pkg.go.dev/std)
+- [google/genai-go](https://github.com/google/genai-go)
+- [ReAct paper (Yao et al.)](https://arxiv.org/abs/2210.03629)
