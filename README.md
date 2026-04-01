@@ -1,4 +1,4 @@
-# DeepGuide - A Mono-Repo of Software Engineering Notes and References
+# DeepGuide - A Mono-Repo of Software Engineering Notes, Guides and References
 
 A personal, growing collection of deep-dive notes, references, and guides across software engineering topics—organized by language and domain.
 
